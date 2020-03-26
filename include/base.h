@@ -33,4 +33,5 @@ constexpr dtype INF = 5e10;
 typedef unsigned short IdxType;
 typedef unsigned short DimUnit;
 
+typedef uint16_t d_bits;
 #endif //SDF2SDF_BASE_H

@@ -324,6 +324,22 @@ void DepthImage::selectROI() {
     this->__operate_img = nullptr;
 }
 
+void DepthImage::loadKinect(const std::string &filepath) {
+    this->__max_inf = false;
+    try {
+        this->__img = imread(filepath, CV_LOAD_IMAGE_ANYDEPTH);
+        if (!this->__img.data) {
+            throw runtime_error("Invalid Image Path.");
+        }
+        double min_v;
+        minMaxIdx(this->__img, &min_v, &this->_max_depth);
+    }catch (exception const &e) {
+        cerr << "Exception: " << e.what() << endl;
+    }
+    this->__width = this->__img.cols;
+    this->__height = this->__img.rows;
+}
+
 RGBImage::RGBImage() {
 }
 
@@ -354,4 +370,9 @@ void RGBImage::selectROI() {
     this->__operate_img = &(this->__img);
     this->_selectROI();
     this->__operate_img = nullptr;
+}
+
+void RGBImage::loadKinect(const std::string &filepath) {
+    cerr << "Cannot load depth image for RGB image object" << endl;
+    exit(EXIT_FAILURE);
 }

@@ -26,6 +26,7 @@ protected:
 public:
     int id;
     virtual void loadImage(const std::string &filepath, int flag);
+    virtual void loadKinect(const std::string &filepath) = 0;
     virtual void loadPose(const std::string &filepath);
     virtual void setPose(const Eigen::Matrix<dtype, 3, 4> &pose);
     virtual void loadIntrinsic(const std::string &filepath);
@@ -60,6 +61,7 @@ class DepthImage: public ImageBase {
     bool __max_inf;
 public:
     DepthImage();
+    void loadKinect(const std::string &filepath) override;
     void loadImage(const std::string &filepath);
     void showImage() override;
     void denoieseImage();
@@ -70,6 +72,7 @@ public:
 class RGBImage: public ImageBase {
 public:
     RGBImage();
+    void loadKinect(const std::string &filepath) override;
     void loadImage(const std::string &filepath, int flag = CV_LOAD_IMAGE_ANYCOLOR);
     void showImage() override;
     double getMaxDepth() const override;

@@ -33,6 +33,4 @@ void genMask(const string &filepath) {
     while (1) {
         if (waitKey(0) == 13) break;
     }
-    imwrite("./depth_mask.png", out);
-    destroyAllWindows();
 }
