@@ -116,10 +116,8 @@ void Inpainting2d::heatDiffusion(const cv::Mat &input_img, cv::Mat &output_img, 
     dtype pre_sum = this->__getSum(input_img, mask);
 
     constexpr dtype THRESH = 1;
-    constexpr int N_ITERATION = 2000;
-    constexpr dtype TIME_STEP = 0.2;
     /**** heat diffusion ****/
-    for (int n = 0; n < N_ITERATION; n++) {
+    for (int n = 0; n < this->__n_iterations; n++) {
         dtype cur_sum = 0;
         for (const auto &point: this->__computed_area) {
             const auto &i = point.i;
@@ -128,7 +126,7 @@ void Inpainting2d::heatDiffusion(const cv::Mat &input_img, cv::Mat &output_img, 
 //            cout << input_img.at<uint16_t>(i, j) << " " << pre[this->index(i, j)] << endl;
             dtype res = pre[this->index(i + 1, j)] + pre[this->index(i - 1, j)]
                     + pre[this->index(i, j + 1)] + pre[this->index(i, j - 1)] - 4 * pre[this->index(i, j)];
-            cur[this->index(i, j)] = pre[this->index(i, j)] + TIME_STEP * res;
+            cur[this->index(i, j)] = pre[this->index(i, j)] + this->__time_step * res;
             cur_sum += cur[this->index(i, j)];
         }
         swap(pre, cur);
@@ -149,11 +147,9 @@ void Inpainting2d::anisotropicDiffusion(const cv::Mat &input_img, cv::Mat &outpu
     dtype pre_sum = this->__getSum(input_img, mask);
 
     constexpr dtype THRESH = 1;
-    constexpr int N_ITERATION = 3000;
-    constexpr dtype TIME_STEP = 0.2;
     constexpr dtype FLOAT_ERR = 1e-10;
     /**** heat diffusion ****/
-    for (int n = 0; n < N_ITERATION; n++) {
+    for (int n = 0; n < this->__n_iterations; n++) {
         dtype cur_sum = 0;
         for (const auto &point: this->__computed_area) {
             const auto &i = point.i;
@@ -173,14 +169,14 @@ void Inpainting2d::anisotropicDiffusion(const cv::Mat &input_img, cv::Mat &outpu
             else {
                 delta = 0;
             }
-            cur[this->index(i, j)] = pre[this->index(i, j)] + TIME_STEP * delta;
+            cur[this->index(i, j)] = pre[this->index(i, j)] + this->__time_step * delta;
             cur_sum += cur[this->index(i, j)];
             if (isinf(cur_sum)) {
                 cout << cur[this->index(i, j)] << endl;
             }
         }
         swap(pre, cur);
-        cout << abs(cur_sum - pre_sum) << endl;
+//        cout << abs(cur_sum - pre_sum) << endl;
         if (abs(cur_sum - pre_sum) > THRESH) {
             pre_sum = cur_sum;
         }
@@ -190,4 +186,12 @@ void Inpainting2d::anisotropicDiffusion(const cv::Mat &input_img, cv::Mat &outpu
     }
 
     this->__genResult(pre, output_img);
+}
+
+void Inpainting2d::setIterationTimes(int n) {
+    this->__n_iterations = n;
+}
+
+void Inpainting2d::setTimeStep(dtype ts) {
+    this->__time_step = ts;
 }

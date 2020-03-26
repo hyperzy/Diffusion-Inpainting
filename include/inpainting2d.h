@@ -19,11 +19,15 @@ class Inpainting2d {
     void __genResult(const std::vector<dtype> &arr, cv::Mat &output_img);
     static dtype __getSum(const cv::Mat &input_img, const cv::Mat &mask);
     std::vector<MyPoint2d> __computed_area;
+    dtype __n_iterations;
+    dtype __time_step;
 public:
     Inpainting2d(int height, int width);
     int h, w;
     unsigned long index(int i, int j);
     bool isValidRange (int i, int j);
+    void setIterationTimes(int n);
+    void setTimeStep(dtype ts);
     void heatDiffusion(const cv::Mat &input_img, cv::Mat &output_img, const cv::Mat &mask);
     void anisotropicDiffusion(const cv::Mat &input_img, cv::Mat &output_img, const cv::Mat &mask);
 };
