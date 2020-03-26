@@ -5,6 +5,6 @@
 #ifndef SDF2SDF_DRAW_MASK_H
 #define SDF2SDF_DRAW_MASK_H
 
-void genMask(const std::string &filepath);
+void genMask(const std::string &filepath, const std::string &output_path);
 //namespace maskdrawing
 #endif //SDF2SDF_DRAW_MASK_H

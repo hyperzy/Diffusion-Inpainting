@@ -14,13 +14,13 @@ string window_name = "depth";
 static void onMouse(int event, int x, int y, int flags, void *params) {
     if (event == EVENT_LBUTTONDOWN || (event == EVENT_MOUSEMOVE && (flags & EVENT_FLAG_LBUTTON))) {
         circle(img_for_show, Point(x, y), 3, Scalar(255, 0, 0), FILLED);
-        circle(out, Point(x, y), 5, Scalar(255, 255, 255), FILLED);
+        circle(out, Point(x, y), 3, Scalar(255, 255, 255), FILLED);
         imshow(window_name, img_for_show);
     }
 //    else if (event == EVENT_MOUSEMOVE && (flags & EVENT_FLAG_LBUTTON)) {}
 
 }
-void genMask(const string &filepath) {
+void genMask(const string &filepath, const string &output_path) {
     img = imread(filepath, CV_LOAD_IMAGE_ANYDEPTH);
     double min_d, max_d;
     minMaxIdx(img, &min_d, &max_d);
@@ -33,4 +33,6 @@ void genMask(const string &filepath) {
     while (1) {
         if (waitKey(0) == 13) break;
     }
+    destroyAllWindows();
+    imwrite(output_path, out);
 }
