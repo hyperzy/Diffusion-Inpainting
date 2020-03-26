@@ -22,10 +22,13 @@ Anisotropic Diffusion: ```./diffu_inpainting anisotropic [number of iteration (i
 
 ## Result Demo
 + Original depth image
+
 ![Repo List](docs/src.png)
 
 + Heat diffusion result
+
 ![Repo List](docs/heatdiff_res.png)
 
 + Anisotropic diffusion result
+
 ![Repo List](docs/anisodiff_res.png)
