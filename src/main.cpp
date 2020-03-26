@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
         cout << "Usage: " << endl;
         cout << "         heat: ./diffu_inpainting heat [number of iteration (int)] [time step (float)] [input img path] [mask path] [output img path]" << endl;
         cout << "  anisotropic: ./diffu_inpainting anisotropic [number of iteration (int)] [time step (float)] [input img path] [mask path] [output img path]" << endl;
-        cout << "     raw mask: ./diffu_inpainting draw [input img path] [output mask path]" << endl;
+        cout << "     draw mask: ./diffu_inpainting draw [input img path] [output mask path]" << endl;
         exit(EXIT_FAILURE);
     }
 //    genMask(depth_path);
