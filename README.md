@@ -10,7 +10,7 @@ Only for 2d depth image (16bit) now. But it is easy to be extended to gray scale
 + CMake 3.14+
 + Eigen
 
-* Note: Eigen is not necessary but you need to delete some dependent codes. All related codes are declared under Eigen namespace
+* Note: Eigen is not necessary but you need to delete some dependent codes if you do not install Eigen. All related codes are declared under Eigen namespace
 
 ## Usage
 
