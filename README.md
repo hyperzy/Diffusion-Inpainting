@@ -1,4 +1,4 @@
-## Apply some kinds of diffusion algorithm for inpainting 2D or 3D grid.
+## Apply some kinds of diffusion algorithms for inpainting 2D or 3D grids.
 
 ## Note
 Only for 2d depth image (16bit) now. But it is easy to be extended to gray scale image or RGB image.
